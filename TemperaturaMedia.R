@@ -18,7 +18,7 @@ library(data.table)
 
 ##LOADING DATAS
 
-#Testando desempenho dos carregamentos
+#Testando loading perfomance
 
 #Using csv2
 system.time(db_teste1 <- read.csv2('AverageTemperature.csv'))
@@ -32,7 +32,7 @@ system.time(db_teste3 <- fread('AverageTemperature.csv'))
 
 ?system.time
 
-#A função fread() será utilizada por ter um tempo menor de carregamento.
+#fread() function will be used because it has a shorter loading time. 
 db <- fread('AverageTemperature.csv')
 
 #Creating subset
@@ -48,9 +48,9 @@ nrow(brazilCities)
 dim(brazilCities)
 
 
-#PREPARAÇÃO E ORGANIZAÇÃO
+#PREPARATION AND ORGANIZATION
 
-#Convertendo as Datas
+#DATA CONVERTING
 brazilCities$dt <- as.POSIXct(brazilCities$dt,format='%Y-%m-%d')
 brazilCities$Month <- month(brazilCities$dt)
 brazilCities$Year <- year(brazilCities$dt)
@@ -70,5 +70,40 @@ crt <- subset(brazilCities, City == "Curitiba")
 crt <- subset(crt, Year %in% c(1796,1846,1896,1946,1996,2012))
 
 #Recife
-recf <- subset(brazilCities, City == "Recife")
-recf <- subset(recf, Year %in% c(1796,1846,1896,1946,1996,2012))
+rcf <- subset(brazilCities, City == "Recife")
+rcf <- subset(rcf, Year %in% c(1796,1846,1896,1946,1996,2012))
+
+
+#Building plots
+p_plm <- ggplot(plm, aes(x = (Month), y = AverageTemperature, color = as.factor(Year))) +
+  geom_smooth(se = FALSE, fill = NA, size = 2) +
+  theme_light(base_size = 20) +
+  xlab("Month") +
+  ylab("Average Temperature") +
+  scale_color_discrete("") +
+  ggtitle("Average Temperature over the years in Palmas")
+  theme(plot.title = element_text(size = 18))
+  
+p_crt <- ggplot(crt, aes(x = (Month), y = AverageTemperature, color = as.factor(Year))) +
+  geom_smooth(se = FALSE, fill = NA, size = 2) +
+  theme_light(base_size = 20) +
+  xlab("Month") +
+  ylab("Average Temperature") +
+  scale_color_discrete("") +
+  ggtitle("Average Temperature over the years in Curitiba")
+  theme(plot.title = element_text(size = 18))
+
+p_rcf <- ggplot(rcf, aes(x = (Month), y = AverageTemperature, color = as.factor(Year))) +
+  geom_smooth(se = FALSE, fill = NA, size = 2) +
+  theme_light(base_size = 20) +
+  xlab("Month") +
+  ylab("Average Temperature") +
+  scale_color_discrete("") +
+  ggtitle("Average Temperature over the years in Recife")
+  theme(plot.title = element_text(size = 18))
+  
+#Plot
+p_plm
+p_crt
+p_rcf
+  
