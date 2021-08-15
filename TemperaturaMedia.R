@@ -18,7 +18,7 @@ library(data.table)
 
 ##LOADING DATAS
 
-#Testando loading perfomance
+#Testing loading perfomance
 
 #Using csv2
 system.time(db_teste1 <- read.csv2('AverageTemperature.csv'))
