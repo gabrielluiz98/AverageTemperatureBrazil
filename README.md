@@ -1,4 +1,4 @@
-Analize average temperature in Brazil
+Analyzing average temperature in some cities in Brazil
 
 Dataset: http://berkeleyearth.org/data/
 
